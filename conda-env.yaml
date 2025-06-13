@@ -1,0 +1,22 @@
+name: lerobot
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - ffmpeg=7.1.1
+  - cmake
+  # - build-essential     # Only available on Linux; remove on Windows/macOS
+  # - pkg-config
+  # - libavformat-dev
+  # - libavcodec-dev
+  # - libavdevice-dev
+  # - libavutil-dev
+  # - libswscale-dev
+  # - libswresample-dev
+  # - libavfilter-dev
+  # - python-dev          # May need to adjust depending on platform
+  - pip:
+      - git+https://github.com/huggingface/lerobot.git#egg=lerobot[pusht]
+      - wandb
