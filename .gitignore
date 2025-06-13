@@ -1,3 +1,6 @@
+1_load_lerobot_dataset.py
+load_pusht_output.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
