@@ -1,9 +1,10 @@
-cd lerobot && python lerobot/scripts/train.py \
+# python my_train.py \
+python lerobot/lerobot/scripts/train.py \
   --policy.path=lerobot/smolvla_base \
-  --dataset.repo_id=nz-nz/eval_so101_test_smolvla \
+  --dataset.repo_id=SafwanAhmad/smol_test_safwan_1 \
   --batch_size=64 \
-  --steps=20 \
-  --output_dir=outputs/train/my_smolvla \
-  --job_name=my_smolvla_training \
+  --steps=200 \
+  --output_dir=outputs/SafwanAhmad_smolvla_finetuned_2000steps_og_train \
+  --job_name=SafwanAhmad_smolvla_finetuned_2000steps_og_train \
   --policy.device=cuda \
-  --wandb.enable=false
+  --log_freq=10
