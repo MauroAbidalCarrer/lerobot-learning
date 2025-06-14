@@ -52,7 +52,7 @@ from lerobot.configs import parser
 from lerobot.configs.train import TrainPipelineConfig
 from lerobot.scripts.eval import eval_policy
 from lerobot.common.datasets.lerobot_dataset import LeRobotDatasetMetadata
-from lerobot.common.datasets.factory import resolve_delta_timestamps
+from lerobot.common.datasets.factory import resolve_delta_timestamps, IMAGENET_STATS
 
 from device_aware_dataset import DeviceAwareDataset
 
@@ -129,11 +129,11 @@ def train(cfg: TrainPipelineConfig):
 
     dataloader = torch.utils.data.DataLoader(
         dataset,
-        num_workers=cfg.num_workers,
+        num_workers=0, #cfg.num_workers,
         batch_size=cfg.batch_size,
         shuffle=shuffle,
         sampler=sampler,
-        pin_memory=device.type != "cpu",
+        pin_memory=False, #device.type != "cpu",
         drop_last=False,
     )
     dl_iter = cycle(dataloader)
@@ -246,7 +246,6 @@ def update_policy(
 ) -> tuple[MetricsTracker, dict]:
     start_time = time.perf_counter()
     device = get_device_from_parameters(policy)
-    print("get_device_from_parameters:", device)
     policy.train()
     with torch.autocast(device_type=device.type) if use_amp else nullcontext():
         loss, output_dict = policy.forward(batch)
@@ -284,9 +283,6 @@ def update_policy(
     train_metrics.lr = optimizer.param_groups[0]["lr"]
     train_metrics.update_s = time.perf_counter() - start_time
     return train_metrics, output_dict
-
-
-
 
 def my_make_dataset(cfg: TrainPipelineConfig) -> DeviceAwareDataset :
     """Handles the logic of setting up delta timestamps and image transforms before creating a dataset.
