@@ -4,7 +4,7 @@ from pathlib import Path
 from torch import Tensor
 from tqdm import tqdm
 
-from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
+from lerobot.common.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata
 
 
 class DeviceAwareDataset(LeRobotDataset):
