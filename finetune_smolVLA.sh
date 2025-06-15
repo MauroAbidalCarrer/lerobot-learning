@@ -1,10 +1,19 @@
-# python my_train.py \
+#!/bin/bash
+
+# Use Paris time for date formatting
+TZ="Europe/Paris"
+date_name=$(TZ=$TZ date +%Y-%m-%d_%H:%M)
+
+echo outputs/our_new_dataset_smolVLA_$date_name
+
 python lerobot/lerobot/scripts/train.py \
+  --dataset.repo_id=SafwanAhmad/smol_test_safwan_odd_one_out \
   --policy.path=lerobot/smolvla_base \
-  --dataset.repo_id=SafwanAhmad/smol_test_safwan_1 \
-  --batch_size=64 \
-  --steps=200 \
-  --output_dir=outputs/SafwanAhmad_smolvla_finetuned_2000steps_og_train \
-  --job_name=SafwanAhmad_smolvla_finetuned_2000steps_og_train \
+  --steps=15000 \
+  --save_freq=1000 \
+  --output_dir=outputs/our_new_dataset_smolVLA_$date_name \
+  --job_name=our_new_dataset_smolVLA_$date_name \
   --policy.device=cuda \
-  --log_freq=10
+  --log_freq=10 \
+  --batch_size=32 \
+  --wandb.enable=true
